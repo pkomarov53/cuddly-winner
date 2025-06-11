@@ -1,0 +1,63 @@
+<!-- templates/checkout.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Оформление заказа</h2>
+<hr>
+<div class="row">
+    <!-- Левая колонка - форма -->
+    <div class="col-md-7">
+        <h4>Адрес доставки</h4>
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <div data-mdb-input-init class="form-outline">
+                        {{ form.first_name(class="form-control") }}
+                        {{ form.first_name.label(class="form-label") }}
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div data-mdb-input-init class="form-outline">
+                        {{ form.last_name(class="form-control") }}
+                        {{ form.last_name.label(class="form-label") }}
+                    </div>
+                </div>
+            </div>
+            <div data-mdb-input-init class="form-outline mb-3">
+                {{ form.phone(class="form-control") }}
+                {{ form.phone.label(class="form-label") }}
+            </div>
+            <div data-mdb-input-init class="form-outline mb-3">
+                {{ form.address(class="form-control") }}
+                {{ form.address.label(class="form-label") }}
+            </div>
+            <div data-mdb-input-init class="form-outline mb-3">
+                {{ form.city(class="form-control") }}
+                {{ form.city.label(class="form-label") }}
+            </div>
+            <hr class="my-4">
+            {{ form.submit(class="btn btn-primary btn-lg btn-block") }}
+        </form>
+    </div>
+    <!-- Правая колонка - состав заказа -->
+    <div class="col-md-5">
+        <h4>Ваш заказ</h4>
+        <ul class="list-group mb-3">
+            {% for item in products_in_cart %}
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                <div>
+                    <h6 class="my-0">{{ item.product.name }}</h6>
+                    <small class="text-muted">Количество: {{ item.quantity }}</small>
+                </div>
+                <span class="text-muted">{{ "%.2f"|format(item.product.price * item.quantity) }} ₽</span>
+            </li>
+            {% endfor %}
+            <li class="list-group-item d-flex justify-content-between">
+                <strong>Итого</strong>
+                <strong>{{ "%.2f"|format(total_price) }} ₽</strong>
+            </li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

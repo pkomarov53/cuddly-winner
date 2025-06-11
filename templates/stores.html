@@ -1,0 +1,24 @@
+<!-- templates/contacts.html -->
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Наши магазины</h2>
+    <hr>
+    <div class="row">
+        <div class="col-md-6">
+            <h4><i class="fas fa-map-marker-alt me-2"></i> Москва</h4>
+            <p>ул. Тверская, д. 1</p>
+            <p>Часы работы: 10:00 - 22:00</p>
+            <p>Телефон: +7 (495) 123-45-67</p>
+            <hr>
+            <h4><i class="fas fa-map-marker-alt me-2"></i> Санкт-Петербург</h4>
+            <p>Невский пр-т, д. 28</p>
+            <p>Часы работы: 10:00 - 22:00</p>
+            <p>Телефон: +7 (812) 123-45-67</p>
+        </div>
+        <div class="col-md-6">
+            <!-- Сюда вставим код карты -->
+            <div style="position:relative;overflow:hidden;"><a href="https://yandex.ru/maps/213/moscow/?utm_medium=mapframe&utm_source=maps" style="color:#eee;font-size:12px;position:absolute;top:0px;">Москва</a><a href="https://yandex.ru/maps/213/moscow/house/tverskaya_ulitsa_1/Z04Yc5hkSkAPQFtvfXt1cHRjZg==/?ll=37.612264%2C55.757497&utm_medium=mapframe&utm_source=maps" style="color:#eee;font-size:12px;position:absolute;top:14px;">Тверская улица, 1 — Яндекс Карты</a><iframe src="https://yandex.ru/map-widget/v1/?ll=37.612264%2C55.757497&mode=search&ol=geo&ouri=ymapsbm1%3A%2F%2Fgeo%3Fdata%3DCgg1NzM5NzI0NBJM0KDQvtGB0YHQuNGPLCDQnNC-0YHQutCy0LAsINCi0LLQtdGA0YHRgtCw0L0g0YPQuy4sINCd0L7QstC-0LIsINCi0LLQtdGA0YHRgtCw0L0gMSIKDWSf9EIV5kdaQg%3D%3D&z=17" width="100%" height="400" frameborder="1" allowfullscreen="true" style="position:relative;"></iframe></div>
+        </div>
+    </div>
+{% endblock %}

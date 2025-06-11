@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ url_for('catalog') }}">Каталог</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ category.name }}</li>
+      </ol>
+    </nav>
+
+    <h2 class="mb-4">Товары в категории "{{ category.name }}"</h2>
+    <div class="row product-row">
+        {% for product in products %}
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card product-card">
+                <div class="card-img-wrapper">
+                    <img src="{{ url_for('static', filename='images/' + product.image_file) }}" class="card-img-top" alt="{{ product.name }}">
+                </div>\
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{{ url_for('product_detail', product_id=product.id) }}">{{ product.name }}</a>
+                    </h5>
+                    <div class="card-price">{{ "%.2f"|format(product.price) }} ₽</div>
+                </div>
+                <div class="card-footer text-center">
+                    <form action="{{ url_for('add_to_cart', product_id=product.id) }}" method="POST">
+                        <input type="hidden" name="quantity" value="1">
+                        <button type="submit" class="btn btn-primary w-100">В корзину</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% else %}
+            <div class="col">
+                <p>В этой категории пока нет товаров.</p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

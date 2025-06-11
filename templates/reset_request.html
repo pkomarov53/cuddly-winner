@@ -1,0 +1,25 @@
+{% extends "form_wrapper.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title text-center">Сброс пароля</h3>
+                <p class="text-center text-muted">Введите email вашего аккаунта. Мы отправим на него ссылку для сброса пароля.</p>
+                <form method="POST" action="">
+                    {{ form.hidden_tag() }}
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        {{ form.email(class="form-control") }}
+                        {{ form.email.label(class="form-label") }}
+                    </div>
+                    {% for error in form.email.errors %}
+                        <div class="alert alert-danger p-1">{{ error }}</div>
+                    {% endfor %}
+                    {{ form.submit(class="btn btn-primary btn-block mb-4") }}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

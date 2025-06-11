@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2 class="mb-4">Личный кабинет</h2>
+
+    <!-- Навигация по вкладкам -->
+    <ul class="nav nav-tabs mb-3" id="profileTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="info-tab" data-mdb-tab-init href="#info-panel" role="tab" aria-controls="info-panel" aria-selected="true">Личные данные</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="orders-tab" data-mdb-tab-init href="#orders-panel" role="tab" aria-controls="orders-panel" aria-selected="false">Мои заказы</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="favorites-tab" data-mdb-tab-init href="#favorites-panel" role="tab" aria-controls="favorites-panel" aria-selected="false">Избранное</button>
+        </li>
+    </ul>
+
+    <!-- Содержимое вкладок -->
+    <div class="tab-content" id="profileTabsContent">
+        <!-- Панель "Личные данные" -->
+        <div class="tab-pane fade show active" id="info-panel" role="tabpanel" aria-labelledby="info-tab">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Ваши данные</h5>
+                    <hr>
+                    <p><strong>Имя пользователя:</strong> {{ current_user.username }}</p>
+                    <p><strong>Email:</strong> {{ current_user.email }}</p>
+                    <!-- Здесь можно добавить кнопку "Редактировать" -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Панель "Мои заказы" -->
+        <div class="tab-pane fade" id="orders-panel" role="tabpanel" aria-labelledby="orders-tab">
+            {% if orders %}
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="bg-light">
+                            <tr>
+                                <th>Номер</th>
+                                <th>Дата</th>
+                                <th>Статус</th>
+                                <th class="text-end">Сумма</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for order in orders %}
+                            <tr>
+                                <td><a href="{{ url_for('order_confirmation', order_id=order.id) }}">№{{ order.id }}</a></td>
+                                <td>{{ order.timestamp.strftime('%d.%m.%Y') }}</td>
+                                <td><span class="badge rounded-pill bg-info">{{ order.status }}</span></td>
+                                <td class="text-end fw-bold">{{ "%.2f"|format(order.total_price) }} ₽</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+             {% else %}
+                 <p class="text-center text-muted mt-4">У вас еще нет ни одного заказа.</p>
+             {% endif %}
+        </div>
+
+        <!-- Панель "Избранное" -->
+        <div class="tab-pane fade" id="favorites-panel" role="tabpanel" aria-labelledby="favorites-tab">
+            {% if favorites %}
+                <div class="list-group">
+                {% for product in favorites %}
+                    <a href="{{ url_for('product_detail', product_id=product.id) }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                        <div>
+                            <img src="{{ url_for('static', filename='images/' + product.image_file) }}" alt="{{ product.name }}" style="width: 50px; height: 50px; object-fit: cover;" class="me-3 rounded">
+                            {{ product.name }}
+                        </div>
+                        <span class="badge bg-primary rounded-pill">{{ "%.2f"|format(product.price) }} ₽</span>
+                    </a>
+                {% endfor %}
+                </div>
+            {% else %}
+                <p class="text-center text-muted mt-4">Вы еще не добавили ни одного товара в избранное.</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

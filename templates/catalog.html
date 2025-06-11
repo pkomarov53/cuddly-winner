@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="text-center mb-5">
+        <h1 class="display-5">Каталог нашей мебели</h1>
+        <p class="lead">Выберите категорию, чтобы найти мебель вашей мечты.</p>
+    </div>
+
+    <div class="row">
+        {% for category in categories %}
+        <div class="col-md-6 col-lg-4 mb-4">
+            <a href="{{ url_for('category_products', category_id=category.id) }}" class="text-dark text-decoration-none">
+                <div class="card category-card h-100">
+                    <div class="card-body text-center d-flex flex-column justify-content-center">
+                        <i class="fas fa-couch fa-3x mb-3 text-muted"></i> <!-- Можно добавить разные иконки -->
+                        <h4 class="card-title">{{ category.name }}</h4>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

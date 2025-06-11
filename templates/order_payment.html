@@ -1,0 +1,23 @@
+<!-- templates/order_payment.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="text-center">
+    <h2>Оплата заказа №{{ order.id }}</h2>
+    <p class="lead">Отсканируйте QR-код в приложении вашего банка для оплаты</p>
+
+    <div class="mt-4">
+        <!-- Вставляем QR-код, закодированный в Base64 -->
+        <img src="data:image/png;base64,{{ qr_code }}" alt="QR-код для оплаты">
+    </div>
+
+    <div class="card mt-4 mx-auto" style="max-width: 400px;">
+        <div class="card-body">
+            <h5 class="card-title">Детали заказа</h5>
+            <p class="card-text">Сумма к оплате: <strong>{{ "%.2f"|format(order.total_cost) }} ₽</strong></p>
+            <p class="card-text">Статус: <span class="badge bg-warning">{{ order.status }}</span></p>
+            <a href="{{ url_for('profile') }}" class="btn btn-secondary mt-3">Перейти в профиль</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
